@@ -1,0 +1,6 @@
+alias agi='apt-get install'
+alias agu='apt-get update'
+alias ags='apt-cache search'
+alias agsh='apt-cache show'
+alias agr='apt-get remove'
+alias agd='apt-get dist-upgrade'
