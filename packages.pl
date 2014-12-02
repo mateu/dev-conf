@@ -10,4 +10,6 @@ install package => [
   "git",
   "keychain",
   "emacs24-nox",
+  "openjdk-8-jre-headless",
+  "gkrellm",
 ];
