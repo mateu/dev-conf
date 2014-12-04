@@ -27,6 +27,7 @@ task "install", group => "workstation", sub {
     "openjdk-8-jre-headless",
     "chromium-browser",
     "gkrellm",
+    "elasticsearch",
   ];
 
 };
@@ -44,3 +45,11 @@ task "uptime", group => "workstation", sub {
   say $output;
 };
 
+task "add_es_repo", group => "workstation", sub {
+  my $out = run "wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -";
+  repository "add" => "elasticsearch",
+     url      => "http://packages.elasticsearch.org/elasticsearch/1.4/debian",
+     distro    => "stable",
+     repository => "main";
+  update_package_db;
+};
