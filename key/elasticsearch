@@ -1,0 +1,3 @@
+#!/bin/sh
+
+wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
