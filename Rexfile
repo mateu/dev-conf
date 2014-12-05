@@ -14,6 +14,7 @@ task "install", group => "workstation", sub {
   install package => [
     "build-essential",
     "curl",
+    "perl-doc",
     "libexpat1-dev",
     "libnet-ssh2-perl",
     "carton",
@@ -27,6 +28,7 @@ task "install", group => "workstation", sub {
     "openjdk-8-jre-headless",
     "chromium-browser",
     "gkrellm",
+    "whois",
     "elasticsearch",
   ];
 
@@ -52,4 +54,10 @@ task "add_es_repo", group => "workstation", sub {
      distro    => "stable",
      repository => "main";
   update_package_db;
+};
+
+task "add_es_inquisitor", group => "workstation", sub {
+  run "add-inquisitor-plugin",
+    command => "bin/plugin -install polyfractal/elasticsearch-inquisitor",
+    cwd     => "/usr/share/elasticsearch";
 };
