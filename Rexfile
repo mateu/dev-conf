@@ -14,7 +14,10 @@ task "install", group => "workstation", sub {
   install package => [
     "build-essential",
     "curl",
+    "vim",
     "perl-doc",
+    "perltidy",
+    "libssl-dev",
     "libexpat1-dev",
     "libnet-ssh2-perl",
     "carton",
