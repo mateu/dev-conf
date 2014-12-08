@@ -7,7 +7,7 @@ private_key "~/.ssh/id_rsa";
 public_key  "~/.ssh/id_rsa.pub";
 sudo TRUE;
 
-group workstation => "bcn";
+group workstation => "localhost";
 
 task "install", group => "workstation", sub {
 
@@ -32,7 +32,6 @@ task "install", group => "workstation", sub {
     "chromium-browser",
     "gkrellm",
     "whois",
-    "elasticsearch",
   ];
 
 };
@@ -50,13 +49,14 @@ task "uptime", group => "workstation", sub {
   say $output;
 };
 
-task "add_es_repo", group => "workstation", sub {
+task "es_install", group => "workstation", sub {
   my $out = run "wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -";
   repository "add" => "elasticsearch",
      url      => "http://packages.elasticsearch.org/elasticsearch/1.4/debian",
      distro    => "stable",
      repository => "main";
   update_package_db;
+  install package => [ "elasticsearch",];
 };
 
 task "add_es_inquisitor", group => "workstation", sub {
