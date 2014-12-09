@@ -50,13 +50,15 @@ task "uptime", group => "workstation", sub {
 };
 
 task "es_install", group => "workstation", sub {
-  my $out = run "wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -";
+  my $key_add = run "wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -";
   repository "add" => "elasticsearch",
      url      => "http://packages.elasticsearch.org/elasticsearch/1.4/debian",
      distro    => "stable",
      repository => "main";
   update_package_db;
   install package => [ "elasticsearch",];
+  my $rc_setting = run "update-rc.d elasticsearch defaults 95 10";
+  my $es_start = run "/etc/init.d/elasticsearch start";
 };
 
 task "add_es_inquisitor", group => "workstation", sub {
