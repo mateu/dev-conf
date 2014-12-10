@@ -66,3 +66,8 @@ task "add_es_inquisitor", group => "workstation", sub {
     command => "bin/plugin -install polyfractal/elasticsearch-inquisitor",
     cwd     => "/usr/share/elasticsearch";
 };
+task "add_es_kopf", group => "workstation", sub {
+  run "add-kopf-plugin",
+    command => "bin/plugin -install lmenezes/elasticsearch-kopf/master",
+    cwd     => "/usr/share/elasticsearch";
+};
