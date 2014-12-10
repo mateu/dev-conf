@@ -32,6 +32,8 @@ task "install", group => "workstation", sub {
     "chromium-browser",
     "gkrellm",
     "whois",
+    "virtualbox",
+    "vagrant",
   ];
 
 };
