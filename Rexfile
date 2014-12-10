@@ -57,6 +57,9 @@ task "es_install", group => "workstation", sub {
      repository => "main";
   update_package_db;
   install package => [ "elasticsearch",];
+  file "/etc/elasticsearch/elasticsearch.yml",
+    content => template("template/elasticsearch.yml"),
+    on_change => sub { service elasticsearch => "restart"; };
   my $rc_setting = run "update-rc.d elasticsearch defaults 95 10";
   my $es_start = run "/etc/init.d/elasticsearch start";
 };
