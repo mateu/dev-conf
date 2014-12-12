@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/hunter/bin/notify-listener.py
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=irc notifier
+Name=irc notifier
+Comment[en_US]=
+Comment=

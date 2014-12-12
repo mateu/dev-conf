@@ -1,6 +1,8 @@
 use Rex;
 use Rex::Commands::Pkg;
 use Rex::Commands::Host;
+use Rex::Commands::SCM;
+use Rex::Commands::Fs;
 
 user "hunter";
 private_key "~/.ssh/id_rsa";
@@ -75,4 +77,53 @@ task "add_es_kopf", group => "workstation", sub {
   run "add-kopf-plugin",
     command => "bin/plugin -install lmenezes/elasticsearch-kopf/master",
     cwd     => "/usr/share/elasticsearch";
+};
+
+task "make_dirs", group => "workstation", sub {
+   file "~/bin",
+     ensure => "directory",
+     owner  => "hunter",
+     group  => "hunter";
+   file "~/dev",
+     ensure => "directory",
+     owner  => "hunter",
+     group  => "hunter";
+   file "~/.irssi/scripts/autorun",
+     ensure => "directory",
+     owner  => "hunter",
+     group  => "hunter";
+   file "~/.config/autostart",
+     ensure => "directory",
+     owner  => "hunter",
+     group  => "hunter";
+};
+
+
+task "install_irssi_scripts", sub {
+  # Make sure dev/ for repos and bin/ for scripts exist
+  make_dirs();
+
+  # notifications
+  do_task "install_libnotify";
+  set repository => "irssi-libnotify",
+    url => "https://code.google.com/p/irssi-libnotify/";
+  checkout "irssi-libnotify",
+    path => "~/dev/irssi-libnotify";
+  cp("~/dev/irssi-libnotify/irssi-notifier.sh", "~/bin/");
+  cp("~/dev/irssi-libnotify/notify-listener.py", "~/bin/");
+  file "~/.config/autostart/notify-listener.py.desktop",
+    content => template("template/notify-listener.py.desktop");
+  cp("~/dev/irssi-libnotify/notify.pl", "~/.irssi/scripts/");
+  ln("~/.irssi/scripts/notify.pl", "~/.irssi/scripts/autorun/");
+  # window list
+  file "~/.irssi/scripts/adv_windowlist.pl",
+    content => template("template/adv_windowlist.pl");
+  ln("~/.irssi/scripts/adv_windowlist.pl", "~/.irssi/scripts/autorun/");
+};
+
+task "install_libnotify", group => "workstation", sub {
+  install package => [
+    "system-tools-backends",
+    "libnotify4",
+  ]
 };
