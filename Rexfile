@@ -36,6 +36,7 @@ task "install", group => "workstation", sub {
     "whois",
     "virtualbox",
     "vagrant",
+    "molly-guard",
   ];
 
 };
@@ -119,6 +120,16 @@ task "install_irssi_scripts", sub {
   file "~/.irssi/scripts/adv_windowlist.pl",
     content => template("template/adv_windowlist.pl");
   ln("~/.irssi/scripts/adv_windowlist.pl", "~/.irssi/scripts/autorun/");
+  
+  # terminal startup of tmux and irssi
+  file "~/bin/tunnel.sh",
+    mode => 755,
+    content => template("template/tunnel.sh");
+  file "~/bin/launch-terminal.sh",
+    mode => 755,
+    content => template("template/launch-terminal.sh");
+  file "~/.config/autostart/terminal.desktop",
+    content => template("template/terminal.desktop");
 };
 
 task "install_libnotify", group => "workstation", sub {
