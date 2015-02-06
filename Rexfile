@@ -31,12 +31,17 @@ task "install", group => "workstation", sub {
     "keychain",
     "emacs24-nox",
     "openjdk-8-jre-headless",
-    "chromium-browser",
     "gkrellm",
     "whois",
     "virtualbox",
     "vagrant",
     "molly-guard",
+    "htop",
+    "network-manager-openvpn-gnome",
+    "nodejs",
+    "xclip",
+    "tree",
+    "npm",
   ];
 
 };
