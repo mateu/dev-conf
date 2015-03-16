@@ -42,6 +42,7 @@ task "install", group => "workstation", sub {
     "xclip",
     "tree",
     "npm",
+    "pmtools",
   ];
 
 };
