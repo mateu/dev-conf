@@ -59,6 +59,10 @@ task "hosts", group => "workstation", sub {
   file "/etc/hosts",
     content => template("template/hosts");
 };
+task "cpanm", sub {
+  my $output = run "curl -L https://cpanmin.us | perl - --sudo App::cpanminus";
+  say $output;
+};
 task "uptime", group => "workstation", sub {
   my $output = run "uptime";
   say $output;
