@@ -51,6 +51,10 @@ task "remove", group => "workstation", sub {
    remove package => [qw/screen irssi/];
 };
 
+task "tmux", sub {
+  file "/home/hunter/.tmux.conf",
+    content => template("template/tmux.conf");
+};
 task "hosts", group => "workstation", sub {
   file "/etc/hosts",
     content => template("template/hosts");
